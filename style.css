@@ -78,7 +78,6 @@ button:active {
     font-family: 'Arial', sans-serif;
 }
 
-/* Media Queries */
 @media screen and (max-width: 480px) {
     body {
         padding: 10px;
@@ -109,7 +108,6 @@ button:active {
     }
 }
 
-/* Landscape mode adjustments */
 @media screen and (max-height: 500px) and (orientation: landscape) {
     body {
         padding: 5px;
@@ -134,7 +132,6 @@ button:active {
     }
 }
 
-/* For very small devices */
 @media screen and (max-width: 320px) {
     button {
         width: calc(100% - 16px);
