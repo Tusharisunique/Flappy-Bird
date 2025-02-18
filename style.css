@@ -1,11 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    min-height: 100vh;
     background-image: linear-gradient(to bottom right, #1a1a2e, #16213e);
-    overflow: hidden;
+    padding: 20px;
 }
 
 .game-container {
@@ -14,29 +19,39 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 canvas {
+    display: block;
     border: none;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    touch-action: none;
 }
 
 #controls {
-    width: 400px;
+    width: 100%;
     text-align: center;
     padding: 10px;
 }
 
 button {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
+    margin: 8px;
+    padding: 12px 24px;
+    font-size: clamp(14px, 4vw, 16px);
     background-color: #0f3460;
     color: #ffffff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 button:hover {
@@ -52,7 +67,7 @@ button:active {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    font-size: 0.9em;
+    font-size: clamp(12px, 3vw, 14px);
     opacity: 0.5;
     color: #ffffff;
     font-style: italic;
@@ -61,4 +76,68 @@ button:active {
     pointer-events: none;
     user-select: none;
     font-family: 'Arial', sans-serif;
+}
+
+/* Media Queries */
+@media screen and (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .game-container {
+        gap: 10px;
+    }
+    
+    button {
+        width: calc(50% - 16px);
+        padding: 10px 15px;
+    }
+}
+
+@media screen and (max-height: 700px) {
+    body {
+        padding: 10px;
+    }
+    
+    .game-container {
+        gap: 10px;
+    }
+    
+    .watermark {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+/* Landscape mode adjustments */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 5px;
+    }
+    
+    .game-container {
+        flex-direction: row;
+        max-width: 90vh;
+        gap: 10px;
+    }
+    
+    #controls {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    button {
+        width: 100%;
+        margin: 5px;
+        padding: 8px 15px;
+    }
+}
+
+/* For very small devices */
+@media screen and (max-width: 320px) {
+    button {
+        width: calc(100% - 16px);
+        margin: 4px 8px;
+    }
 }
