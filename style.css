@@ -38,6 +38,10 @@ canvas {
     width: 100%;
     text-align: center;
     padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 button {
@@ -120,14 +124,17 @@ button:active {
     }
     
     #controls {
-        display: flex;
-        flex-direction: column;
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;
         justify-content: center;
+        padding: 5px;
     }
     
     button {
-        width: 100%;
-        margin: 5px;
+        min-width: 80px;
         padding: 8px 15px;
     }
 }
