@@ -9,7 +9,6 @@ let bird = {
     gravity: 0.6,
     lift: -8,
     velocity: 0,
-    canFlap: true
 };
 
 let pipes = [];
@@ -26,10 +25,6 @@ let gameStarted = false;
 let minGapSize = 200;
 
 let gameInitialized = false;
-
-let lastTime = 0;
-const FPS = 60;
-const frameTime = 1000 / FPS;
 
 function drawBird() {
     ctx.fillStyle = "#ffcc00";
@@ -99,12 +94,6 @@ function updatePipes() {
 function flap() {
     if (!gameOver && !isPaused) {
         bird.velocity = bird.lift;
-        
-        if (isMobile()) {
-            setTimeout(() => {
-                bird.canFlap = true;
-            }, 100);
-        }
     }
 }
 
@@ -131,22 +120,12 @@ function startCountdown() {
     }
 }
 
-function update(currentTime = 0) {
+function update() {
     if (!gameStarted) return;
     
-    const deltaTime = currentTime - lastTime;
-    lastTime = currentTime;
-    
-    if (deltaTime < frameTime) {
-        requestAnimationFrame(update);
-        return;
-    }
-    
     if (!gameOver && !isPaused) {
-        const timeScale = deltaTime / frameTime;
-        
-        bird.velocity += bird.gravity * timeScale;
-        bird.y += bird.velocity * timeScale;
+        bird.velocity += bird.gravity;
+        bird.y += bird.velocity;
 
         if (bird.y + bird.height >= canvas.height) {
             gameOver = true;
@@ -210,13 +189,6 @@ document.addEventListener("keydown", function(event) {
 });
 
 canvas.addEventListener("click", flap);
-canvas.addEventListener("touchstart", function(e) {
-    e.preventDefault();
-    if (bird.canFlap !== false) {
-        bird.canFlap = false;
-        flap();
-    }
-}, { passive: false });
 
 document.getElementById("restartBtn").addEventListener("click", restartGame);
 document.getElementById("pauseBtn").addEventListener("click", pauseGame);
@@ -284,12 +256,7 @@ function showStartScreen() {
     ctx.fillText("Flappy Bird", canvas.width / 2, canvas.height / 2 - 40);
     ctx.font = "20px Arial";
     ctx.fillText("Click 'Start Game' to play", canvas.width / 2, canvas.height / 2 + 20);
-    
     document.getElementById("pauseBtn").style.display = "none";
 }
 
 showStartScreen();
-
-function isMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
